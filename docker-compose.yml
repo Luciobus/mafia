@@ -1,0 +1,10 @@
+version: '3'
+services:
+  mafia-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 50053
+    ports:
+      - 50053:50053

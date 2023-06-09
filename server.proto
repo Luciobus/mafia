@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package server;
+
+message Player {
+  string name = 1;
+  string role = 2;
+}
+
+message PlayerList {
+  repeated Player players = 1;
+}
+
+message SetUsernameRequest {
+  string username = 1;
+}
+
+message SetUsernameResponse {
+  bool success = 1;
+}
+
+message AssignRoleRequest {
+  string username = 1;
+}
+  
+message AssignRoleResponse {
+  string role = 1;
+}
+
+message ConnectRequest {
+  string server_address = 1;
+}
+
+message ConnectResponse {
+  bool success = 1;
+}
+
+message NotificationsRequest {
+}
+
+message Notification {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetPlayersRequest {
+}
+
+message GetPlayersResponse {
+  PlayerList players = 1;
+}
+
+message CheckDayRequest {
+  string role = 1;
+}
+
+message CheckDayResponse {
+  bool success = 1;
+  string msg = 2;
+}
+
+message EndDayRequest {
+    string username = 1;
+}
+
+message EndDayResponse {
+  bool success = 1;
+}
+
+message ExecutePlayerRequest {
+  string player_name = 1;
+}
+
+message ExecutePlayerResponse {
+  bool success = 1;
+}
+
+message VotePlayerRequest {
+  string username = 1;
+  string player_name = 2;
+}
+
+message InvestigatePlayerRequest {
+  string player_name = 1;
+}
+
+message InvestigatePlayerResponse {
+  bool success = 1;
+  string role = 2;
+}
+
+message PublishDataRequest {
+  bool publish = 1;
+}
+
+message PublishDataResponse {
+  bool success = 1;
+}
+
+message IsGameFinishedRequest {
+}
+
+message IsGameFinishedResponse {
+  bool finished = 1;
+  string msg = 2;
+}
+
+service MafiaGame {
+  rpc SetUsername(SetUsernameRequest) returns (SetUsernameResponse);
+  rpc AssignRole(AssignRoleRequest) returns (AssignRoleResponse);
+  rpc Connect(ConnectRequest) returns (ConnectResponse);
+  rpc GetNotifications(NotificationsRequest) returns (stream Notification);
+  rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse);
+  rpc CheckDay(CheckDayRequest) returns (CheckDayResponse);
+  rpc EndDay(EndDayRequest) returns (EndDayResponse);
+  rpc VotePlayer(VotePlayerRequest) returns (EndDayResponse);
+  rpc ExecutePlayer(ExecutePlayerRequest) returns (ExecutePlayerResponse);
+  rpc InvestigatePlayer(InvestigatePlayerRequest) returns (InvestigatePlayerResponse);
+  rpc PublishData(PublishDataRequest) returns (PublishDataResponse);
+  rpc IsGameFinished(IsGameFinishedRequest) returns (IsGameFinishedResponse);
+}
